@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>Welcome to Discuss</h1>
+    <h2>Submissions</h2>
+{% endblock header %}
+
+{% block content %}
+    <ul>
+        {% for submission in submissions %}
+            <li>
+                {% if request.user in submission.upvotes.all %}
+                    <a href="{% url 'links:remove-upvote' link_pk=submission.pk %}">Remove Upvote</a>
+                {% else %}
+                    <a href="{% url 'links:upvote-submission' link_pk=submission.pk %}">Upvote</a>
+                {% endif %}
+
+                <a href="{{ submission.url }}" target="_blank">
+                    {{ submission.title }}
+                </a>
+                <i><a href="{% url 'links:submission-detail' pk=submission.pk %}">Comments</a></i>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

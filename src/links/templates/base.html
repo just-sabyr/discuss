@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>Discuss - Share and Disucss your favourite web pages</title>
+</head>
+<body>
+    {% block header %}
+    {% endblock header %}
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'links:home' %}">Home</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'links:new-submission' %}">Submit New Link</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:register' %}">Create New Account</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
